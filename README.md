@@ -135,3 +135,7 @@ python -m plot_commands.generate_figures_secondary `
 ## Benchmarks
 
 Benchmarks are loaded automatically from HuggingFace at runtime, from [`Wikit/RoutingCompendium-perf`](https://huggingface.co/datasets/Wikit/RoutingCompendium-perf) (per-query performance of every candidate) and [`Wikit/RoutingCompendium-cost`](https://huggingface.co/datasets/Wikit/RoutingCompendium-cost) (candidate prices).
+
+## AI-Assistant Use
+
+In accordance with the ACL Policy on AI Assistance, this disclosure is provided: AI assistants were used to clean and format code, and to assist with data visualization. All AI-assisted output has been reviewed and verified by the authors.
