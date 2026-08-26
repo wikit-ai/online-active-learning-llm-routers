@@ -51,8 +51,5 @@ foreach ($exp in $experiments) {
         budget         = $exp.Budget
         k_values       = $exp.K_values
     }
-    if ($exp.ContainsKey("SwitchStep")) {
-        $args["switch_step"] = $exp.SwitchStep
-    }
     .\run_experiment.ps1 @args
 }

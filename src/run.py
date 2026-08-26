@@ -26,7 +26,6 @@ def run(
     type_experiment: Literal[
         "main_stationary",
         "main_domain_non_stationary",
-        "model_switch_probe",
         "model_switch_regret",
         "partial_annotation",
     ],
@@ -42,7 +41,6 @@ def run(
     budget: int,
     k_values: list[int],
     cost_penalty: float = 0.0,
-    switch_step: int | None = None,
 ):
     # snowflake-arctic-embed-m-v2.0 embeddings are pre-computed in the dataset
     embedder = (
@@ -64,13 +62,6 @@ def run(
             benchmark=benchmark,
             embedder=embedder,
             train_test_sizes=(4000, 5000),
-        )
-    elif type_experiment == "model_switch_probe":
-        ds_loader = DatasetManagement(
-            seed=seed,
-            benchmark=benchmark,
-            embedder=embedder,
-            train_test_sizes=(3000, 5000),
         )
     elif type_experiment == "model_switch_regret":
         ds_loader = DatasetManagement(
@@ -365,7 +356,6 @@ if __name__ == "__main__":
         choices=[
             "main_stationary",
             "main_domain_non_stationary",
-            "model_switch_probe",
             "model_switch_regret",
             "partial_annotation",
         ],
@@ -412,13 +402,6 @@ if __name__ == "__main__":
         help="List of k values for KNN (default: [5]). Example: --k_values 3 5 7 10",
     )
 
-    parser.add_argument(
-        "--switch_step",
-        type=int,
-        default=None,
-        help="Stream step at which the swap fires in model_switch_probe mode (default: stream midpoint)",
-    )
-
     args = parser.parse_args()
 
     run(
@@ -429,5 +412,4 @@ if __name__ == "__main__":
         budget=args.budget,
         k_values=args.k_values,
         cost_penalty=args.cost_penalty,
-        switch_step=args.switch_step,
     )

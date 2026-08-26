@@ -39,10 +39,7 @@ param(
 
     [Parameter(Mandatory=$false)]
     [ValidateSet("true", "false", "")]
-    [string]$stationary = "",
-
-    [Parameter(Mandatory=$false)]
-    [int]$switch_step = -1
+    [string]$stationary = ""
 )
 
 $seeds = @()
@@ -60,9 +57,6 @@ Write-Host "K Values: $($k_values -join ', ')" -ForegroundColor Yellow
 if ($stationary -ne "") {
     Write-Host "Stationary: $stationary" -ForegroundColor Yellow
 }
-if ($type -eq "model_switch_probe" -and $switch_step -ge 0) {
-    Write-Host "Switch Step: $switch_step" -ForegroundColor Yellow
-}
 Write-Host ""
 
 $success_count = 0
@@ -79,10 +73,6 @@ foreach ($seed in $seeds) {
         if ($stationary -ne "") {
             $cmd_args += @("--stationary", $stationary)
         }
-        if ($type -eq "model_switch_probe" -and $switch_step -ge 0) {
-            $cmd_args += @("--switch_step", $switch_step)
-        }
-
         python @cmd_args
         if ($LASTEXITCODE -eq 0) {
             $success_count++
